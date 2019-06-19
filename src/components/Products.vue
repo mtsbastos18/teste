@@ -1,46 +1,22 @@
 <template>
   <div class="container products">
     <div class="row">
-      <div class="col-md-3 col-lg-3">
-        <div class="card" style="width: 18rem;">
+
+      <div class="col-md-3 col-lg-3 card" v-for="p of produtos" :key="p.id">
           <img class="card-img-top" src="../assets/logo.png" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
+            <p class="card-title">{{getPostBody(p.name)}}</p>
             <p
               class="card-text"
-            >Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            >Valor: R$ {{p.price}}</p>
+            <router-link class="nav-link btn btn-success float-right"  :to="{name: 'produto', params: {id: p.id}}">Detalhes</router-link>
           </div>
-        </div>
       </div>
-      <div class="col-md-3 col-lg-3">
-        <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src="../assets/logo.png" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p
-              class="card-text"
-            >Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 col-lg-3">
-        <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src="../assets/logo.png" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p
-              class="card-text"
-            >Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
+      
     </div>
   </div>
 </template>
-<style>
+<style scoped>
 .card-img-top {
   width: 65% !important;
   margin: auto;
@@ -50,6 +26,8 @@
 }
 .row div {
   margin: auto;
+  border: 0;
+
 }
 </style>
 
@@ -61,6 +39,7 @@ export default {
   data() {
     return {
       produto: {
+        id: "",
         name: "",
         price: "",
         description: ""
@@ -72,7 +51,18 @@ export default {
 
   methods: {
     listar() {
-      Products.listar().then(response => {console.log(response)});
+      Products.listar().then(response => {this.produtos = response.data});
+    },
+
+    getPostBody (post) {
+      console.log(post);
+      let body = this.stripTags(post);
+
+      return body.length > 30 ? body.substring(0, 30) + '...' : body;           
+    },
+
+    stripTags (text) {
+      return text.replace(/(<([^>]+)>)/ig, '');
     }
   },
 
