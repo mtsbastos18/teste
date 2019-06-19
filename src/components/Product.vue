@@ -13,7 +13,7 @@
         <p>Categoria: {{produto.category.name}}</p>
 
         <p>Valor: <b>R$ {{produto.price}}</b></p>
-        <a href="" class="btn btn-success float-right">Comprar</a>
+        <a class="btn btn-success float-right"  @click="addToCart(produto)">Comprar</a>
       </div>
     </div>
   </div>
@@ -52,6 +52,10 @@ export default {
   methods: {
     buscar(id) {
       Products.getById(id).then(response => {this.produto = response.data; console.log(this.produto)});
+    },
+    addToCart(produto) {
+        this.$store.commit('addToCart', produto);
+        alert("Produto Adicionado");
     }
   },
 

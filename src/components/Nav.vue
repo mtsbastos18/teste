@@ -21,6 +21,9 @@
         <li class="nav-item active">
           <router-link class="nav-link" :to="{name: 'produtos'}">Produtos</router-link>
         </li>
+        <li class="nav-item active">
+          <router-link class="nav-link" :to="{name: 'carrinho'}">Carrinho</router-link>
+        </li>
         <!-- <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
