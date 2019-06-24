@@ -8,7 +8,7 @@ import Products from './components/Products.vue';
 import Carrinho from './components/Carrinho.vue';
 
 const routes = [
-    { path: '/', component: Home, name: 'inicio' },
+    { path: '/', component: Products, name: 'inicio' },
     { path: '/registrar', component: Register, name: 'registrar' },
     { path: '/login', component: Login, name: 'login' },
     { path: '/produto/:id', component: Product, name: 'produto'},

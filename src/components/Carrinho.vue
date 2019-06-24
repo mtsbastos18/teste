@@ -45,15 +45,50 @@
               <a href class="btn btn-outline-danger" @click.prevent="removeFromCart(product)">× Remover</a>
             </td>
           </tr>
-          <span class>Total: R$ {{ totalPrice }}</span>
+          <span class="float-right">Total: R$ {{ totalPrice }}</span>
         </tbody>
       </table>
+      <div class="col-lg-4 endereco">
+        <p>Endereço para entrega</p>
+        <form action="">
+          <div class="form-group">
+            <input type="text" class="form-control cep" placeholder="CEP" >
+            <a class="btn btn-success float-right" @click.prevent="buscaCep()">Buscar</a>
+          </div>
+          <div class="form-group">
+            <input class="form-control" type="text" name="" id="" readonly :value="endereco.logradouro">
+          </div>
+          <div class="form-group">
+            <input class="form-control" type="text" name="" id="" placeholder="Numero">
+          </div>
+          <div class="form-group">
+            <input class="form-control" type="text" name="" id="" placeholder="Complemento">
+          </div>
+        </form>
+      </div>
     </div>
     <!-- card.// -->
   </div>
 </template>
 <script>
+import Cep from '../services/cep';
 export default {
+  data() {
+    return {
+      endereco: {
+        cep: "",
+        logradouro: "",
+        complemento: "",
+        bairro: "",
+        localidade: "",
+        uf: "",
+        unidade: "",
+        ibge: "",
+        gia: "",
+      }
+    };
+  },
+
   computed: {
     totalPrice() {
       let total = 0;
@@ -69,6 +104,10 @@ export default {
   methods: {
     removeFromCart(product) {
       this.$store.commit("removeFromCart", product);
+    },
+
+    buscaCep() {
+      Cep.buscarCep("91750740").then(resposta => {this.endereco = resposta.data; console.log(this.endereco)});
     }
   }
 };
@@ -77,6 +116,10 @@ export default {
 .param {
   margin-bottom: 7px;
   line-height: 1.4;
+}
+.cep{
+  width: 60%;
+  display: inline-flex;
 }
 .param-inline dt {
   display: inline-block;
