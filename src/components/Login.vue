@@ -10,13 +10,13 @@
             <form action="" >
                 <div class="form-group">
                     <label for="">E-mail</label>
-                    <input type="email" name="" id="email" class="form-control">
+                    <input type="email" name="" id="email" v-model="user.email" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="">Senha</label>
-                    <input type="password" name="" id="password" class="form-control">
+                    <input type="password" name="" id="password" v-model="user.password" class="form-control">
                 </div>
-                <input type="button" value="Entrar" class="btn btn-success">
+                <input type="button" value="Entrar" @click="login()" class="btn btn-success">
             </form>
           </div>
         </div>
@@ -25,8 +25,22 @@
   </div>
 </template>
 <script>
+import User from "../services/user";
 export default {
-    
+    data () {
+      return {
+        user: {
+          email: "",
+          password: ""
+        }
+      }
+    },
+
+    methods: {
+      login() {
+        User.login(this.user).then(response => console.log(response.data));
+      }
+    }
 }
 </script>
 <style lang="scss" scoped>

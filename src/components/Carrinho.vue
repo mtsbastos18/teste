@@ -52,17 +52,17 @@
         <p>Endereço para entrega</p>
         <form action="">
           <div class="form-group">
-            <input type="text" class="form-control cep" placeholder="CEP" >
+            <input type="text" class="form-control cep" v-model="cep" placeholder="CEP" >
             <a class="btn btn-success float-right" @click.prevent="buscaCep()">Buscar</a>
           </div>
           <div class="form-group">
-            <input class="form-control" type="text" name="" id="" readonly :value="endereco.logradouro">
-          </div>
-          <div class="form-group">
-            <input class="form-control" type="text" name="" id="" placeholder="Numero">
+            <input class="form-control" type="text" name="" id="" placeholder="Endereço" v-model="endereco.logradouro">
           </div>
           <div class="form-group">
             <input class="form-control" type="text" name="" id="" placeholder="Complemento">
+          </div>
+          <div class="form-group">
+            <input class="form-control" type="text" name="" id="" placeholder="Cidade" v-model="endereco.localidade">
           </div>
         </form>
       </div>
@@ -85,7 +85,8 @@ export default {
         unidade: "",
         ibge: "",
         gia: "",
-      }
+      },
+      cep: ""
     };
   },
 
@@ -107,7 +108,7 @@ export default {
     },
 
     buscaCep() {
-      Cep.buscarCep("91750740").then(resposta => {this.endereco = resposta.data; console.log(this.endereco)});
+      Cep.buscarCep(this.cep).then(resposta => {this.endereco = resposta.data; console.log(this.endereco)});
     }
   }
 };

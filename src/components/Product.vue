@@ -13,7 +13,7 @@
         <p>Categoria: {{produto.category.name}}</p>
 
         <p>Valor: <b>R$ {{produto.price}}</b></p>
-        <a class="btn btn-success float-right"  @click="addToCart(produto)">Comprar</a>
+        <a class="btn btn-success float-right"  @click="addToCart(produto)">Adicionar ao carrinho</a>
       </div>
     </div>
   </div>
