@@ -3,7 +3,7 @@
     <div class="row">
 
       <div class="col-md-3 col-lg-3 card" v-for="p of produtos" :key="p.id">
-          <img class="card-img-top" src="../assets/logo.png" alt="Card image cap">
+          <img class="card-img-top" :src="getImgUrl(p.id)" alt="Card image cap">
           <div class="card-body">
             <p class="card-title">{{getPostBody(p.name)}}</p>
             <p
@@ -63,6 +63,10 @@ export default {
 
     stripTags (text) {
       return text.replace(/(<([^>]+)>)/ig, '');
+    },
+
+    getImgUrl(pic) {
+        return require('../assets/'+pic + ".jpg")
     }
   },
 

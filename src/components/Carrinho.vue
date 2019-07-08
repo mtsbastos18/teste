@@ -18,7 +18,7 @@
             <td>
               <figure class="media">
                 <div class="img-wrap">
-                  <img src="../assets/logo.png" class="img-thumbnail img-sm">
+                  <img src="../assets/logo.png" class="img-thumbnail img-sm" />
                 </div>
                 <figcaption class="media-body">
                   <h6 class="title text-truncate">{{product.name}}</h6>
@@ -42,7 +42,11 @@
               </div>
             </td>
             <td class="text-right">
-              <a href class="btn btn-outline-danger" @click.prevent="removeFromCart(product)">× Remover</a>
+              <a
+                href
+                class="btn btn-outline-danger"
+                @click.prevent="removeFromCart(product)"
+              >× Remover</a>
             </td>
           </tr>
           <span class="float-right">Total: R$ {{ totalPrice }}</span>
@@ -50,19 +54,33 @@
       </table>
       <div class="col-lg-4 endereco">
         <p>Endereço para entrega</p>
-        <form action="">
+        <form action>
           <div class="form-group">
-            <input type="text" class="form-control cep" v-model="cep" placeholder="CEP" >
+            <input type="text" class="form-control cep" v-model="cep" placeholder="CEP" />
             <a class="btn btn-success float-right" @click.prevent="buscaCep()">Buscar</a>
           </div>
           <div class="form-group">
-            <input class="form-control" type="text" name="" id="" placeholder="Endereço" v-model="endereco.logradouro">
+            <input
+              class="form-control"
+              type="text"
+              name
+              id
+              placeholder="Endereço"
+              v-model="endereco.logradouro"
+            />
           </div>
           <div class="form-group">
-            <input class="form-control" type="text" name="" id="" placeholder="Complemento">
+            <input class="form-control" type="text" name id placeholder="Complemento" />
           </div>
           <div class="form-group">
-            <input class="form-control" type="text" name="" id="" placeholder="Cidade" v-model="endereco.localidade">
+            <input
+              class="form-control"
+              type="text"
+              name
+              id
+              placeholder="Cidade"
+              v-model="endereco.localidade"
+            />
           </div>
         </form>
       </div>
@@ -71,7 +89,7 @@
   </div>
 </template>
 <script>
-import Cep from '../services/cep';
+import Cep from "../services/cep";
 export default {
   data() {
     return {
@@ -84,7 +102,7 @@ export default {
         uf: "",
         unidade: "",
         ibge: "",
-        gia: "",
+        gia: ""
       },
       cep: ""
     };
@@ -108,8 +126,22 @@ export default {
     },
 
     buscaCep() {
-      Cep.buscarCep(this.cep).then(resposta => {this.endereco = resposta.data; console.log(this.endereco)});
+      Cep.buscarCep(this.cep).then(resposta => {
+        this.endereco = resposta.data;
+        console.log(this.endereco);
+      });
+    },
+    verificaLogado() {
+      if (!window.localStorage.getItem("token")) {
+        this.$router.push("login");
+      } else {
+        return false;
+      }
     }
+  },
+
+  mounted() {
+    this.verificaLogado();
   }
 };
 </script>
@@ -118,7 +150,7 @@ export default {
   margin-bottom: 7px;
   line-height: 1.4;
 }
-.cep{
+.cep {
   width: 60%;
   display: inline-flex;
 }

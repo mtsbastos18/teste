@@ -27,6 +27,7 @@
 <script>
 import User from "../services/user";
 export default {
+  
     data () {
       return {
         user: {
@@ -37,9 +38,25 @@ export default {
     },
 
     methods: {
+      
       login() {
-        User.login(this.user).then(response => console.log(response.data));
+        User.login(this.user).then((response) => {
+          window.localStorage.setItem('token',response.data['token']);
+          this.$router.push('carrinho');
+        }).catch(reason =>  {alert("Usuário incorreto")})
+      },
+
+      verificaLogado() {
+        if (window.localStorage.getItem('token')){
+          this.$router.push('carrinho');
+        } else {
+          return false;
+        }
       }
+    },
+
+    mounted() {
+      this.verificaLogado();
     }
 }
 </script>

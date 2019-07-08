@@ -51,7 +51,7 @@ export default {
 
   methods: {
     buscar(id) {
-      Products.getById(id).then(response => {this.produto = response.data; console.log(this.produto)});
+      Products.getById(id).then(response => {this.produto = response.data});
     },
     addToCart(produto) {
         this.$store.commit('addToCart', produto);
