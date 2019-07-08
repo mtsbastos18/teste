@@ -4,7 +4,7 @@
   <div class="container card ">
     <div class="row justify-content-center">
       <div class="col-lg-4">
-        <img class="card-img-top" src="../assets/logo.png" alt="Card image cap">
+        <img class="card-img-top" :src="getImgUrl(produto.id)" alt="Card image cap">
       </div>
       <div class="col-lg-6">
         <h5>{{produto.name}}</h5>
@@ -56,6 +56,9 @@ export default {
     addToCart(produto) {
         this.$store.commit('addToCart', produto);
         alert("Produto Adicionado");
+    },
+    getImgUrl(pic) {
+        return require('../assets/'+pic + ".jpg")
     }
   },
 
